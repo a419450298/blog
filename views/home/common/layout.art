@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    {{block 'title'}}{{/block}}
+    <link rel="stylesheet" href="/home/css/base.css">
+	
+    {{block 'link'}}{{/block}}
+</head>
+
+<body>
+    {{block 'main'}}{{/block}}
+
+    {{block 'script'}}{{/block}}
+</body>
+
+</html>

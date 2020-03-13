@@ -1,0 +1,54 @@
+{{extend './common/layout.art'}}
+{{block 'title'}}<title>文章详情</title>{{/block}}
+{{block 'link'}}<link rel="stylesheet" href="/home/css/article.css">{{/block}}
+{{block 'main'}}
+{{include './common/header.art'}}
+	<!-- 文章框架开始 -->
+	<div class="article">
+		<div class="w1100">
+			<div class="container">
+				<div class="article-header">
+					<h3 class="article-title">{{articledit.title}}</h3>
+					<div class="article-info">
+						<span class="author">{{articledit.author.username}}</span>
+						<span>{{dateformat(articledit.publishDate,'yyyy-mm-dd')}}</span>
+					</div>
+				</div>
+				<div class="article-content">
+						{{@articledit.content}}
+				</div>
+				<div class="article-comment">
+					{{if userDtail}}
+					<h4>评论</h4>
+					
+					<form class="comment-form" action="/home/common" method="POST">
+						<textarea name="content" class="comment"></textarea>
+						<input value="{{@userDtail._id}}" type="hidden" name="uid">
+						<input value="{{@articledit._id}}" type="hidden" name="aid">
+						<div class="items">
+							<input type="submit" value="提交">
+						</div>
+					</form>
+					{{else}}
+					<div><h2>先登录，再进行评论</h2></div>
+					{{/if}}
+					<div class="comment-list">
+						{{each commons}}
+						<div class="mb10">
+							<div class="article-info">
+								<span class="author">{{$value.uid.username}}</span>
+								<span>{{dateformat($value.time,'yyyy-mm-dd')}}</span>
+								<span>{{$value.uid.email}}</span>
+							</div>
+							<div class="comment-content">
+								{{@$value.content}}
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 文章框架结束 -->
+	{{/block}}

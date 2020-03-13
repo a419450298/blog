@@ -1,0 +1,71 @@
+{{extend './common/layout.art'}}
+{{block 'title'}}<title>编辑用户信息</title>{{/block}}
+{{block 'main'}}
+    {{include './common/header.art'}}
+    <!-- 主体内容 -->
+    <div class="content">
+        {{include './common/aside.art'}}
+        <div class="main">
+            <!-- 分类标题 -->
+            <div class="title"> 
+                <h4>{{data ? '修改用户' : '新增用户'}}</h4>
+                {{if message}}
+                <p class="tips">错误信息：{{message}}</p>
+                {{/if}}
+            </div>
+            <!-- /分类标题 -->
+            <form id="useredit" class="form-container" action="{{link}}" method="POST">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input value="{{data && data.username}}" name="username" type="text" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input value="{{data && data.email}}" name="email" type="email" class="form-control" placeholder="请输入邮箱地址">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input name="password" type="password" class="form-control" placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <label>角色</label>
+                    <select name="role" class="form-control">
+                        <option value="normal" {{data && data.role=='normal' ? 'selected' : ''}}>普通用户</option>
+                        <option value="admin" {{data && data.role=='admin' ? 'selected' : ''}}>超级管理员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>状态</label>
+                    <select name="state" class="form-control">
+                        <option value="0" {{data && data.state=='0' ? 'selected' : ''}}>启用</option>
+                        <option value="1" {{data && data.state=='1' ? 'selected' : ''}}>禁用</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <input value="{{data ? '修改' : '添加'}}" type="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /主体内容 -->
+{{/block}}
+{{block 'script'}}
+<script>
+    // 为表单添加提交事件
+    $('#useredit').on('submit', function () {
+        var formdata = getFormData($(this))
+        if(formdata.username.trim().length == 0){
+            alert('请输入用户名')
+            return false;
+        }
+        if(formdata.email.trim().length == 0){
+            alert('请输入邮件地址')
+            return false;
+        }
+        if(formdata.password.trim().length == 0){
+            alert('请输入密码')
+            return false;
+        }
+    });
+</script>
+{{/block}}

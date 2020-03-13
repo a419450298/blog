@@ -1,0 +1,20 @@
+{{extend './common/layout.art'}}
+
+{{block 'main'}}
+<p class="bg-danger error">{{msg}} <span class="time"></span> 秒后跳转到登陆页</p>
+{{/block}}
+{{block 'script'}}
+<script>
+    var time = document.querySelector(".time");
+    var t = 3;
+    time.innerHTML = t; 
+    t--;
+    setInterval(() => {
+        time.innerHTML = t;
+        t--;
+        if(t < 0) {
+            location.href = '/admin/login';
+        }
+    }, 1000);
+</script>
+{{/block}}
